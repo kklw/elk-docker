@@ -21,6 +21,7 @@ services:
     volumes:
       - ./logstash/config/logstash.yml:/usr/share/logstash/config/logstash.yml:ro
       - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+      - ${LOG_FILE_PATH}:/usr/share/logstash/logstash_development.log
     ports:
       - "5000:5000"
     environment:
@@ -29,6 +30,8 @@ services:
       - elk
     depends_on:
       - elasticsearch
+    env_file:
+      - .env
 
   kibana:
     build:
